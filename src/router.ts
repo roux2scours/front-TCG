@@ -1,18 +1,32 @@
+// src/router.ts
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from './pages/HomePage.vue'
+import LoginPage from './pages/LoginPage.vue'
+import SignupPage from './pages/SignupPage.vue'
 
 export const ROUTES = {
   HOME: '/',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
 } as const
 
 const routes = [
   { path: ROUTES.HOME, component: HomePage, meta: { requiresAuth: true } },
+  { path: ROUTES.LOGIN, component: LoginPage, meta: { requiresAuth: false } },
+  { path: ROUTES.SIGNUP, component: SignupPage, meta: { requiresAuth: false } },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !localStorage.getItem('token')) {
+    return ROUTES.LOGIN
+  }
+  return true
 })
 
 export default router
