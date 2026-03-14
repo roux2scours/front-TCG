@@ -26,13 +26,29 @@
         </NButton>
       </NSpace>
       <NSpace align="center" :size="16">
-        <NText depth="3">Renseigner le user connecté ici</NText>
-        <NButton size="small">Déconnexion</NButton>
+        <NText v-if="isAuthenticated" type="info" depth="3">{{
+          user?.username
+        }}</NText>
+        <RouterLink :to="ROUTES.LOGIN">
+          <NButton
+            v-if="isAuthenticated"
+            size="small"
+            @click="authStore.logout()"
+            >Déconnexion</NButton
+          >
+        </RouterLink>
       </NSpace>
     </NSpace>
   </NLayoutHeader>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
+import { ROUTES } from '@/router'
+import { userAuthStore } from '@/stores/auth.store'
+
+const authStore = userAuthStore()
+const { user, isAuthenticated } = storeToRefs(authStore)
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string
 </script>
