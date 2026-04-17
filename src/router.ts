@@ -1,6 +1,9 @@
 // src/router.ts
 import { createRouter, createWebHistory } from 'vue-router'
 
+import DeckCreatePage from './pages/DeckCreatePage.vue'
+import DeckDetailPage from './pages/DeckDetailPage.vue'
+import DeckEditPage from './pages/DeckEditPage.vue'
 import HomePage from './pages/HomePage.vue'
 import LoginPage from './pages/LoginPage.vue'
 import SignupPage from './pages/SignupPage.vue'
